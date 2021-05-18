@@ -1,6 +1,6 @@
 <?php
 
-namespace EgeaTech\LaravelModels\Interfaces\Models;
+namespace EgeaTech\LaravelModels\Interfaces\Models\QueryBuilder;
 
 use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\AllowedFilter;
