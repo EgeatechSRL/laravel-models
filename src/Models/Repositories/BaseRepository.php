@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use App\Interfaces\Models\SupportsQueryBuilderInterface;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use EgeaTech\LaravelModels\Interfaces\Models\Identifiers\IdentifierInterface;
 use EgeaTech\LaravelModels\Interfaces\Models\Repositories\BaseRepositoryInterface;
+use EgeaTech\LaravelModels\Interfaces\Models\QueryBuilder\SupportsQueryBuilderInterface;
 use EgeaTech\LaravelRequests\Interfaces\Http\Requests\RequestData\ModelStoreDataInterface;
 use EgeaTech\LaravelRequests\Interfaces\Http\Requests\RequestData\ModelUpdateDataInterface;
 
