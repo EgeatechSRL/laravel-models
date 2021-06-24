@@ -2,6 +2,10 @@
 
 All notable changes to `LaravelModels` will be documented in this file.
 
+## Version 1.0.2
+### Fixed
+- `findRecordViaAdvancedQueryBuilder` return value in `BaseRepository` class
+
 ## Version 1.0.1
 ### Added
 - `Queryable` trait
