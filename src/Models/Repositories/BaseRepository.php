@@ -170,9 +170,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
      *
      * @param IdentifierInterface $modelId
      * @param bool $failIfNotFound
-     * @return Model
+     * @return null|Model
      */
-    private function findRecordViaAdvancedQueryBuilder(IdentifierInterface $modelId, bool $failIfNotFound = false): Model
+    private function findRecordViaAdvancedQueryBuilder(IdentifierInterface $modelId, bool $failIfNotFound = false): ?Model
     {
         $query = QueryBuilder::for($this->model)
             ->allowedFilters($this->model::getAllowedFilters())
