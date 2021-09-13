@@ -45,13 +45,12 @@ abstract class BaseRepository implements BaseRepositoryInterface
     public function find(IdentifierInterface $modelId, array $relationsToLoad = [], bool $failIfNotFound = false): ?Model
     {
         try {
-
-            $modelQuery = ($this->model)->with($relationsToLoad);
+            $cleanModelInstance = new $this->model();
+            $modelQuery = $cleanModelInstance->with($relationsToLoad);
 
             return $failIfNotFound
                 ? $modelQuery->findOrFail($modelId)
                 : $modelQuery->find($modelId);
-
         } catch (QueryException $exception) {
             throw (new ModelNotFoundException())
                 ->setModel(get_class($this->model), $modelId->getValue());
@@ -61,7 +60,8 @@ abstract class BaseRepository implements BaseRepositoryInterface
     public function findMany(array $modelIds, array $relationsToLoad = [], bool $failIfNotFound = false): Collection
     {
         try {
-            $modelQuery = ($this->model)->with($relationsToLoad);
+            $cleanModelInstance = new $this->model();
+            $modelQuery = $cleanModelInstance->with($relationsToLoad);
 
             $results = $modelQuery->findMany($modelIds);
             if ($failIfNotFound && $results->count() > 0) {
@@ -69,7 +69,6 @@ abstract class BaseRepository implements BaseRepositoryInterface
             } else {
                 return $results;
             }
-
         } catch (QueryException $exception) {
             throw (new ModelNotFoundException());
         }
@@ -77,7 +76,8 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     public function getFirstWhere(array $filters = [], array $relationsToLoad = [], bool $failIfNotFound = false): ?Model
     {
-        $query = $this->model
+        $cleanModelInstance = new $this->model();
+        $query = $cleanModelInstance
             ->with($relationsToLoad)
             ->where($filters);
 
@@ -89,11 +89,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
     public function show(IdentifierInterface $modelId, bool $failIfNotFound = false): ?Model
     {
         try {
-
             return $this->model instanceof SupportsQueryBuilderInterface
                 ? $this->findRecordViaAdvancedQueryBuilder($modelId, $failIfNotFound)
                 : $this->find($modelId, [], $failIfNotFound);
-
         } catch (QueryException $exception) {
             throw (new ModelNotFoundException())
                 ->setModel(get_class($this->model), $modelId->getValue());
@@ -102,7 +100,8 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     public function store(ModelStoreDataInterface $modelData): Model
     {
-        $modelInstance = $this->model->fill($modelData->getData());
+        $cleanModelInstance = new $this->model();
+        $modelInstance = $cleanModelInstance->fill($modelData->getData());
         $modelInstance->save();
 
         return $modelInstance;

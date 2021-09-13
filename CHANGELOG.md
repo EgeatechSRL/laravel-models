@@ -2,6 +2,10 @@
 
 All notable changes to `LaravelModels` will be documented in this file.
 
+## Version 1.0.3
+### Fixed
+- Methods in `BaseRepository` shared the same model instance when executing queries (for example, invoking multiple `store` calls caused data overwriting) 
+
 ## Version 1.0.2
 ### Fixed
 - `findRecordViaAdvancedQueryBuilder` return value in `BaseRepository` class
