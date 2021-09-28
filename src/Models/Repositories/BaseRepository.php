@@ -2,7 +2,6 @@
 
 namespace EgeaTech\LaravelModels\Models\Repositories;
 
-use Illuminate\Support\Facades\App;
 use EgeaTech\LaravelModels\Interfaces\Models\Identifiers\IdentifierInterface;
 use EgeaTech\LaravelModels\Interfaces\Models\QueryBuilder\SupportsQueryBuilderInterface;
 use EgeaTech\LaravelModels\Interfaces\Models\Repositories\BaseRepositoryInterface;
@@ -15,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use Spatie\QueryBuilder\QueryBuilder;
 
 abstract class BaseRepository implements BaseRepositoryInterface
@@ -225,8 +225,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this
             ->getIndexQueryViaModel($filters, $relationsToLoad)
             ->paginate(
-                $this->itemsPerPageResolver->getPageSize($itemsPerPage, true)['*'],
-                'page',
+                $this->itemsPerPageResolver->getPageSize($itemsPerPage, true),
+                ['*'],
+                'page.size',
                 $pageNumber
             );
     }
