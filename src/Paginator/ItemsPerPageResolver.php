@@ -10,11 +10,14 @@ class ItemsPerPageResolver implements ItemsPerPageResolverInterface
 {
     private QueryBuilderRequest $request;
 
+    private Request $mainRequest;
+
     private int $fallbackSize = 0;
 
     public function __construct(Request $request)
     {
         $this->request = QueryBuilderRequest::fromRequest($request);
+        $this->mainRequest = $request;
     }
 
     public function getPageSize(?int $amount = null, bool $useDefinedFallback = false): int
@@ -22,6 +25,10 @@ class ItemsPerPageResolver implements ItemsPerPageResolverInterface
         // User-provided amount should "win" over
         // other input sources
         if (!is_null($amount) && $amount > 0) {
+            $requestData = $this->mainRequest->all();
+            $requestData['page'] = ['size' => $amount];
+            $this->mainRequest->replace($requestData);
+
             return $amount;
         }
 

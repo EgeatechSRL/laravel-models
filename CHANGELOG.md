@@ -2,6 +2,11 @@
 
 All notable changes to `LaravelModels` will be documented in this file.
 
+## Version 2.0.2
+### Fixed
+- `BaseRepository::getRecordsViaModelQuery` method
+- `ItemsPerPageResolver::getPageSize` when forcing user-defined page size
+
 ## Version 2.0.1
 ### Fixed
 - `BaseRepository::__construct`, better DI handling
