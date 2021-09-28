@@ -2,4 +2,6 @@
 
 namespace EgeaTech\LaravelModels;
 
-class LaravelModels {}
+class LaravelModels
+{
+}

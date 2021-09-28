@@ -2,11 +2,11 @@
 
 namespace EgeaTech\LaravelModels\Models\Identifiers;
 
+use EgeaTech\LaravelModels\Interfaces\Models\Identifiers\IdentifierInterface;
+use EgeaTech\LaravelModels\Interfaces\Models\Identifiers\IntegerIdentifierInterface;
+use EgeaTech\LaravelModels\Interfaces\Models\Identifiers\StringIdentifierInterface;
 use Exception;
 use Illuminate\Support\Str;
-use EgeaTech\LaravelModels\Interfaces\Models\Identifiers\IdentifierInterface;
-use EgeaTech\LaravelModels\Interfaces\Models\Identifiers\StringIdentifierInterface;
-use EgeaTech\LaravelModels\Interfaces\Models\Identifiers\IntegerIdentifierInterface;
 
 abstract class BaseIdentifier implements IdentifierInterface
 {

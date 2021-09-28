@@ -2,3 +2,4 @@
 /vendor
 .phpunit.result.cache
 npm-debug.log
+.php-cs-fixer.cache

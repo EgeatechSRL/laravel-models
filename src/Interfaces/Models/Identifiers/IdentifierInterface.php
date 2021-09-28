@@ -1,20 +1,18 @@
 <?php
 
-
 namespace EgeaTech\LaravelModels\Interfaces\Models\Identifiers;
-
 
 interface IdentifierInterface
 {
     /**
-     * The actual value for Model primary key
+     * The actual value for Model primary key.
      *
      * @return int|string
      */
     public function getValue();
 
     /**
-     * Utility method to check whether an instance IS the same as another
+     * Utility method to check whether an instance IS the same as another.
      *
      * @param IdentifierInterface $otherResource
      * @return bool
@@ -22,7 +20,7 @@ interface IdentifierInterface
     public function is(self $otherResource): bool;
 
     /**
-     * Utility method to check whether an instance IS NOT the same as another
+     * Utility method to check whether an instance IS NOT the same as another.
      *
      * @param IdentifierInterface $otherResource
      * @return bool
@@ -32,7 +30,7 @@ interface IdentifierInterface
     /**
      * Compulsory requiring implementation of the `__toString` method,
      * in order to avoid the need of explicitly calling the `getValue()`
-     * method when dealing with those classes at database query level
+     * method when dealing with those classes at database query level.
      *
      * @return string
      */
