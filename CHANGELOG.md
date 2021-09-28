@@ -2,6 +2,10 @@
 
 All notable changes to `LaravelModels` will be documented in this file.
 
+## Version 2.0.1
+### Fixed
+- `BaseRepository::__construct`, better DI handling
+
 ## Version 2.0.0
 ### Fixed
 - `BaseRepository::findManyByIds` method, which wrongly thrown an exception
