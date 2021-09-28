@@ -2,6 +2,7 @@
 
 namespace EgeaTech\LaravelModels\Models\Repositories;
 
+use Illuminate\Support\Facades\App;
 use EgeaTech\LaravelModels\Interfaces\Models\Identifiers\IdentifierInterface;
 use EgeaTech\LaravelModels\Interfaces\Models\QueryBuilder\SupportsQueryBuilderInterface;
 use EgeaTech\LaravelModels\Interfaces\Models\Repositories\BaseRepositoryInterface;
@@ -25,11 +26,11 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     private ItemsPerPageResolverInterface $itemsPerPageResolver;
 
-    public function __construct(Model $model, ItemsPerPageResolverInterface $perPageResolver)
+    public function __construct(Model $model)
     {
         $this->model = $model;
 
-        $this->itemsPerPageResolver = $perPageResolver;
+        $this->itemsPerPageResolver = App::get(ItemsPerPageResolverInterface::class);
         $this->itemsPerPageResolver->setFallbackSize($this->model->getPerPage());
     }
 
