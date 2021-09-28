@@ -12,15 +12,20 @@ use EgeaTech\LaravelRequests\Interfaces\Http\Requests\RequestData\ModelUpdateDat
 interface BaseRepositoryInterface
 {
     /**
-     * Retrieves the list of models in a paginated way
+     * Retrieves the list of models in a paginated way.
+     * The parameter `$pageNumber` is considered only
+     * when Model being queried do not implement
+     * `SupportsQueryBuilder` interface, otherwise
+     * the appropriate field is checked against request
+     * parameters.
      *
-     * @param array $filters
-     * @param array $relationsToLoad
-     * @param int $itemsPerPage
-     * @param int $resultsPage
+     * @param array[]|Callable[] $filters
+     * @param string[]|Callable[] $relationsToLoad
+     * @param null|int $itemsPerPage
+     * @param int $pageNumber
      * @return LengthAwarePaginator
      */
-    public function index(array $filters = [], array $relationsToLoad = [], int $itemsPerPage = 15, int $resultsPage = 0): LengthAwarePaginator;
+    public function index(array $filters = [], array $relationsToLoad = [], ?int $itemsPerPage = null, int $pageNumber = 1): LengthAwarePaginator;
 
     /**
      * Retrieves all items matching given criteria

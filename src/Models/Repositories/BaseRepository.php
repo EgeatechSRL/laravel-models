@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use EgeaTech\LaravelModels\Interfaces\Models\Identifiers\IdentifierInterface;
+use EgeaTech\LaravelModels\Interfaces\Paginator\ItemsPerPageResolverInterface;
 use EgeaTech\LaravelModels\Interfaces\Models\Repositories\BaseRepositoryInterface;
 use EgeaTech\LaravelModels\Interfaces\Models\QueryBuilder\SupportsQueryBuilderInterface;
 use EgeaTech\LaravelRequests\Interfaces\Http\Requests\RequestData\ModelStoreDataInterface;
@@ -23,16 +24,21 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     protected Model $model;
 
-    public function __construct(Model $model)
+    private ItemsPerPageResolverInterface $itemsPerPageResolver;
+
+    public function __construct(Model $model, ItemsPerPageResolverInterface $perPageResolver)
     {
         $this->model = $model;
+
+        $this->itemsPerPageResolver = $perPageResolver;
+        $this->itemsPerPageResolver->setFallbackSize($this->model->getPerPage());
     }
 
-    public function index(array $filters = [], array $relationsToLoad = [], int $itemsPerPage = 15, int $resultsPage = 0): LengthAwarePaginator
+    public function index(array $filters = [], array $relationsToLoad = [], ?int $itemsPerPage = null, int $pageNumber = 1): LengthAwarePaginator
     {
         return $this->model instanceof SupportsQueryBuilderInterface
-            ? $this->getRecordsViaAdvancedQueryBuilder($filters)
-            : $this->getRecordsViaModelQuery($filters, $relationsToLoad);
+            ? $this->getRecordsViaAdvancedQueryBuilder($filters, $itemsPerPage)
+            : $this->getRecordsViaModelQuery($filters, $relationsToLoad, $itemsPerPage, $pageNumber);
     }
 
     public function allWhere(array $filters = [], array $relationsToLoad = []): Collection
@@ -129,7 +135,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
      * group of records using the enhanced query
      * builder
      *
-     * @param array $additionalFilters
+     * @param array[]|Callable[] $additionalFilters
      * @return QueryBuilder
      */
     protected function getAdvancedIndexQuery(array $additionalFilters): QueryBuilder
@@ -149,14 +155,17 @@ abstract class BaseRepository implements BaseRepositoryInterface
      * The querying process will be done through Spatie's
      * QueryBuilder library.
      *
-     * @param array $additionalFilters
+     * @param array[]|Callable[] $additionalFilters
+     * @param null|int $itemsPerPage
      * @return LengthAwarePaginator
      */
-    private function getRecordsViaAdvancedQueryBuilder(array $additionalFilters = []): LengthAwarePaginator
+    private function getRecordsViaAdvancedQueryBuilder(array $additionalFilters = [], ?int $itemsPerPage = null): LengthAwarePaginator
     {
         return $this
             ->getAdvancedIndexQuery($additionalFilters)
-            ->jsonPaginate()
+            ->jsonPaginate(
+                $this->itemsPerPageResolver->getPageSize($itemsPerPage)
+            )
             ->appends(request()->query());
     }
 
@@ -189,8 +198,8 @@ abstract class BaseRepository implements BaseRepositoryInterface
      * retrieving a group of records in the standard
      * Laravel way
      *
-     * @param array $filters
-     * @param array $relationsToLoad
+     * @param array[]|Callable[] $filters
+     * @param array[]|Callable[] $relationsToLoad
      * @return Builder
      */
     protected function getIndexQueryViaModel(array $filters = [], array $relationsToLoad = []): Builder
@@ -202,16 +211,23 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     /**
      * Simple method to fetch Model records in a paginated
-     * form
+     * way
      *
-     * @param array $filters
-     * @param array $relationsToLoad
+     * @param array[]|Callable[] $filters
+     * @param array[]|Callable[] $relationsToLoad
+     * @param null|int $itemsPerPage
+     * @param int $pageNumber
      * @return LengthAwarePaginator
      */
-    private function getRecordsViaModelQuery(array $filters = [], array $relationsToLoad = []): LengthAwarePaginator
+    private function getRecordsViaModelQuery(array $filters = [], array $relationsToLoad = [], ?int $itemsPerPage = null, int $pageNumber = 1): LengthAwarePaginator
     {
         return $this
             ->getIndexQueryViaModel($filters, $relationsToLoad)
-            ->jsonPaginate();
+            ->paginate(
+                $this->itemsPerPageResolver->getPageSize($itemsPerPage, true)
+                ['*'],
+                'page',
+                $pageNumber
+            );
     }
 }
