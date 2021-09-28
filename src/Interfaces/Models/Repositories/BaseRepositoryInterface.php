@@ -25,18 +25,18 @@ interface BaseRepositoryInterface
     /**
      * Retrieves all items matching given criteria
      *
-     * @param array $filters
-     * @param array $relationsToLoad
+     * @param array[]|Callable[] $filters
+     * @param array[]|Callable[] $relationsToLoad
      * @return Collection
      */
-    public function all(array $filters = [], array $relationsToLoad = []): Collection;
+    public function allWhere(array $filters = [], array $relationsToLoad = []): Collection;
 
     /**
      * Fetches a single record from DB, given its identifier, optionally
      * loading additional relationships over it
      *
      * @param IdentifierInterface $modelId
-     * @param array $relationsToLoad
+     * @param string[]|Callable[] $relationsToLoad
      * @param bool $failIfNotFound
      * @return Model|null
      */
@@ -55,15 +55,18 @@ interface BaseRepositoryInterface
     /**
      * Fetches the first record, given some filtering criteria
      *
-     * @param array $filters
-     * @param array $relationsToLoad
+     * @param array[]|Callable[] $filters
+     * @param array[]|Callable[] $relationsToLoad
      * @param bool $failIfNotFound
      * @return Model|null
      */
     public function getFirstWhere(array $filters = [], array $relationsToLoad = [], bool $failIfNotFound = false): ?Model;
 
     /**
-     * Fetches a single model from DB, given its identifier
+     * Fetches a single model from DB, given its identifier.
+     * Differs from the `find` method as is can be hooked to
+     * Spatie's QueryBuilder library, in order to load relations
+     * and attributes over fetched model.
      *
      * @param IdentifierInterface $modelId
      * @param bool $failIfNotFound
