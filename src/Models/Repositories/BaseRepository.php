@@ -35,7 +35,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
             : $this->getRecordsViaModelQuery($filters, $relationsToLoad);
     }
 
-    public function all(array $filters = [], array $relationsToLoad = []): Collection
+    public function allWhere(array $filters = [], array $relationsToLoad = []): Collection
     {
         return $this
             ->getIndexQueryViaModel($filters, $relationsToLoad)
@@ -57,7 +57,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
         }
     }
 
-    public function findMany(array $modelIds, array $relationsToLoad = [], bool $failIfNotFound = false): Collection
+    public function findManyByIds(array $modelIds, array $relationsToLoad = [], bool $failIfNotFound = false): Collection
     {
         try {
             $cleanModelInstance = new $this->model();
