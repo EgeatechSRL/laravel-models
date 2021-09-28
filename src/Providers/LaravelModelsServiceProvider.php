@@ -4,6 +4,8 @@ namespace EgeaTech\LaravelModels\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use EgeaTech\LaravelModels\LaravelModels;
+use EgeaTech\LaravelModels\Paginator\ItemsPerPageResolver;
+use EgeaTech\LaravelModels\Interfaces\Paginator\ItemsPerPageResolverInterface;
 
 class LaravelModelsServiceProvider extends ServiceProvider
 {
@@ -14,7 +16,8 @@ class LaravelModelsServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Dependency injection registration
+        app()->bind(ItemsPerPageResolverInterface::class, ItemsPerPageResolver::class);
     }
 
     /**
