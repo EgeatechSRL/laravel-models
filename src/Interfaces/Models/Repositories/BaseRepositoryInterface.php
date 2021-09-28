@@ -43,6 +43,16 @@ interface BaseRepositoryInterface
     public function find(IdentifierInterface $modelId, array $relationsToLoad = [], bool $failIfNotFound = false): ?Model;
 
     /**
+     * Retrieves a set of Models by their IDs
+     *
+     * @param IdentifierInterface[] $modelIds
+     * @param string[]|Callable[] $relationsToLoad
+     * @param bool $failIfNotFound
+     * @return Collection<Model>
+     */
+    public function findManyByIds(array $modelIds, array $relationsToLoad = [], bool $failIfNotFound = false): Collection;
+
+    /**
      * Fetches the first record, given some filtering criteria
      *
      * @param array $filters
