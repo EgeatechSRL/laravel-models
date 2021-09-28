@@ -1,6 +1,6 @@
 <?php
 
-namespace EgeaTech\LaravelModels\Models\QueryBuilder;
+namespace EgeaTech\LaravelModels\Models\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -21,7 +21,7 @@ trait Queryable
     public static function getAllowedFilters(): array
     {
         return collect(static::fetchDisposableModelInstance()->getFillable())
-            ->map(fn(string $fillableField) => new AllowedFilter($fillableField, new FiltersPartial($fillableField)))
+            ->map(fn (string $fillableField) => new AllowedFilter($fillableField, new FiltersPartial($fillableField)))
             ->toArray();
     }
 
