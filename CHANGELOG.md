@@ -2,6 +2,16 @@
 
 All notable changes to `LaravelModels` will be documented in this file.
 
+## Version 2.0.0
+### Fixed
+- `BaseRepository::findManyByIds` method, which wrongly thrown an exception
+- Pagination parameters for `BaseRepository::index` method, which were not considered when querying a Model
+### Updated
+- `BaseRepository::all` is now `BaseRepository::allWhere`
+- `BaseRepository::findMany` is now `BaseRepository::findManyByIds`
+### Added
+- Page dimension resolver when performing paginated API calls
+
 ## Version 1.0.3
 ### Fixed
 - Methods in `BaseRepository` shared the same model instance when executing queries (for example, invoking multiple `store` calls caused data overwriting) 
