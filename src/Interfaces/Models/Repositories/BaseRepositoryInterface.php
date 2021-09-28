@@ -2,12 +2,12 @@
 
 namespace EgeaTech\LaravelModels\Interfaces\Models\Repositories;
 
-use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use EgeaTech\LaravelModels\Interfaces\Models\Identifiers\IdentifierInterface;
 use EgeaTech\LaravelRequests\Interfaces\Http\Requests\RequestData\ModelStoreDataInterface;
 use EgeaTech\LaravelRequests\Interfaces\Http\Requests\RequestData\ModelUpdateDataInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 interface BaseRepositoryInterface
 {
@@ -19,8 +19,8 @@ interface BaseRepositoryInterface
      * the appropriate field is checked against request
      * parameters.
      *
-     * @param array[]|Callable[] $filters
-     * @param string[]|Callable[] $relationsToLoad
+     * @param array[]|callable[] $filters
+     * @param string[]|callable[] $relationsToLoad
      * @param null|int $itemsPerPage
      * @param int $pageNumber
      * @return LengthAwarePaginator
@@ -28,40 +28,40 @@ interface BaseRepositoryInterface
     public function index(array $filters = [], array $relationsToLoad = [], ?int $itemsPerPage = null, int $pageNumber = 1): LengthAwarePaginator;
 
     /**
-     * Retrieves all items matching given criteria
+     * Retrieves all items matching given criteria.
      *
-     * @param array[]|Callable[] $filters
-     * @param array[]|Callable[] $relationsToLoad
+     * @param array[]|callable[] $filters
+     * @param array[]|callable[] $relationsToLoad
      * @return Collection
      */
     public function allWhere(array $filters = [], array $relationsToLoad = []): Collection;
 
     /**
      * Fetches a single record from DB, given its identifier, optionally
-     * loading additional relationships over it
+     * loading additional relationships over it.
      *
      * @param IdentifierInterface $modelId
-     * @param string[]|Callable[] $relationsToLoad
+     * @param string[]|callable[] $relationsToLoad
      * @param bool $failIfNotFound
      * @return Model|null
      */
     public function find(IdentifierInterface $modelId, array $relationsToLoad = [], bool $failIfNotFound = false): ?Model;
 
     /**
-     * Retrieves a set of Models by their IDs
+     * Retrieves a set of Models by their IDs.
      *
      * @param IdentifierInterface[] $modelIds
-     * @param string[]|Callable[] $relationsToLoad
+     * @param string[]|callable[] $relationsToLoad
      * @param bool $failIfNotFound
      * @return Collection<Model>
      */
     public function findManyByIds(array $modelIds, array $relationsToLoad = [], bool $failIfNotFound = false): Collection;
 
     /**
-     * Fetches the first record, given some filtering criteria
+     * Fetches the first record, given some filtering criteria.
      *
-     * @param array[]|Callable[] $filters
-     * @param array[]|Callable[] $relationsToLoad
+     * @param array[]|callable[] $filters
+     * @param array[]|callable[] $relationsToLoad
      * @param bool $failIfNotFound
      * @return Model|null
      */
@@ -80,7 +80,7 @@ interface BaseRepositoryInterface
     public function show(IdentifierInterface $modelId, bool $failIfNotFound = false): ?Model;
 
     /**
-     * Stores a new Model instance
+     * Stores a new Model instance.
      *
      * @param ModelStoreDataInterface $modelData
      * @return Model
@@ -88,7 +88,7 @@ interface BaseRepositoryInterface
     public function store(ModelStoreDataInterface $modelData): Model;
 
     /**
-     * Updates the Model identified by given identifier reference
+     * Updates the Model identified by given identifier reference.
      *
      * @param IdentifierInterface $modelId
      * @param ModelUpdateDataInterface $modelData
@@ -97,7 +97,7 @@ interface BaseRepositoryInterface
     public function update(IdentifierInterface $modelId, ModelUpdateDataInterface $modelData): Model;
 
     /**
-     * Deletes a Model given its identifier
+     * Deletes a Model given its identifier.
      *
      * @param IdentifierInterface $modelId
      * @return bool

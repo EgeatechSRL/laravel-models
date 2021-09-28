@@ -2,20 +2,19 @@
 
 namespace EgeaTech\LaravelModels\Models\Repositories;
 
-
-use Spatie\QueryBuilder\QueryBuilder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\QueryException;
-use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use EgeaTech\LaravelModels\Interfaces\Models\Identifiers\IdentifierInterface;
-use EgeaTech\LaravelModels\Interfaces\Paginator\ItemsPerPageResolverInterface;
-use EgeaTech\LaravelModels\Interfaces\Models\Repositories\BaseRepositoryInterface;
 use EgeaTech\LaravelModels\Interfaces\Models\QueryBuilder\SupportsQueryBuilderInterface;
+use EgeaTech\LaravelModels\Interfaces\Models\Repositories\BaseRepositoryInterface;
+use EgeaTech\LaravelModels\Interfaces\Paginator\ItemsPerPageResolverInterface;
 use EgeaTech\LaravelRequests\Interfaces\Http\Requests\RequestData\ModelStoreDataInterface;
 use EgeaTech\LaravelRequests\Interfaces\Http\Requests\RequestData\ModelUpdateDataInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Collection;
+use Spatie\QueryBuilder\QueryBuilder;
 
 abstract class BaseRepository implements BaseRepositoryInterface
 {
@@ -73,6 +72,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
             if ($failIfNotFound && $results->count() < 1) {
                 throw new ModelNotFoundException();
             }
+
             return $results;
         } catch (QueryException $exception) {
             throw (new ModelNotFoundException());
@@ -133,9 +133,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
     /**
      * Defines the query being executed when fetching
      * group of records using the enhanced query
-     * builder
+     * builder.
      *
-     * @param array[]|Callable[] $additionalFilters
+     * @param array[]|callable[] $additionalFilters
      * @return QueryBuilder
      */
     protected function getAdvancedIndexQuery(array $additionalFilters): QueryBuilder
@@ -155,7 +155,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
      * The querying process will be done through Spatie's
      * QueryBuilder library.
      *
-     * @param array[]|Callable[] $additionalFilters
+     * @param array[]|callable[] $additionalFilters
      * @param null|int $itemsPerPage
      * @return LengthAwarePaginator
      */
@@ -196,10 +196,10 @@ abstract class BaseRepository implements BaseRepositoryInterface
     /**
      * Defines the base query being executed when
      * retrieving a group of records in the standard
-     * Laravel way
+     * Laravel way.
      *
-     * @param array[]|Callable[] $filters
-     * @param array[]|Callable[] $relationsToLoad
+     * @param array[]|callable[] $filters
+     * @param array[]|callable[] $relationsToLoad
      * @return Builder
      */
     protected function getIndexQueryViaModel(array $filters = [], array $relationsToLoad = []): Builder
@@ -211,10 +211,10 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     /**
      * Simple method to fetch Model records in a paginated
-     * way
+     * way.
      *
-     * @param array[]|Callable[] $filters
-     * @param array[]|Callable[] $relationsToLoad
+     * @param array[]|callable[] $filters
+     * @param array[]|callable[] $relationsToLoad
      * @param null|int $itemsPerPage
      * @param int $pageNumber
      * @return LengthAwarePaginator
@@ -224,8 +224,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this
             ->getIndexQueryViaModel($filters, $relationsToLoad)
             ->paginate(
-                $this->itemsPerPageResolver->getPageSize($itemsPerPage, true)
-                ['*'],
+                $this->itemsPerPageResolver->getPageSize($itemsPerPage, true)['*'],
                 'page',
                 $pageNumber
             );

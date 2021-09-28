@@ -21,7 +21,7 @@ trait Queryable
     public static function getAllowedFilters(): array
     {
         return collect(static::fetchDisposableModelInstance()->getFillable())
-            ->map(fn(string $fillableField) => new AllowedFilter($fillableField, new FiltersPartial($fillableField)))
+            ->map(fn (string $fillableField) => new AllowedFilter($fillableField, new FiltersPartial($fillableField)))
             ->toArray();
     }
 

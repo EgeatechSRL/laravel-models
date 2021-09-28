@@ -2,9 +2,9 @@
 
 namespace EgeaTech\LaravelModels\Paginator;
 
+use EgeaTech\LaravelModels\Interfaces\Paginator\ItemsPerPageResolverInterface;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilderRequest;
-use EgeaTech\LaravelModels\Interfaces\Paginator\ItemsPerPageResolverInterface;
 
 class ItemsPerPageResolver implements ItemsPerPageResolverInterface
 {

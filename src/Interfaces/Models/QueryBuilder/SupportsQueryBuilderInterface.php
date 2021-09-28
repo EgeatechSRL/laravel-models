@@ -2,9 +2,9 @@
 
 namespace EgeaTech\LaravelModels\Interfaces\Models\QueryBuilder;
 
-use Spatie\QueryBuilder\AllowedSort;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\AllowedInclude;
+use Spatie\QueryBuilder\AllowedSort;
 
 interface SupportsQueryBuilderInterface
 {

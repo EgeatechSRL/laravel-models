@@ -2,10 +2,10 @@
 
 namespace EgeaTech\LaravelModels\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use EgeaTech\LaravelModels\Interfaces\Paginator\ItemsPerPageResolverInterface;
 use EgeaTech\LaravelModels\LaravelModels;
 use EgeaTech\LaravelModels\Paginator\ItemsPerPageResolver;
-use EgeaTech\LaravelModels\Interfaces\Paginator\ItemsPerPageResolverInterface;
+use Illuminate\Support\ServiceProvider;
 
 class LaravelModelsServiceProvider extends ServiceProvider
 {
