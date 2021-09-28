@@ -225,8 +225,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this
             ->getIndexQueryViaModel($filters, $relationsToLoad)
             ->paginate(
-                $this->itemsPerPageResolver->getPageSize($itemsPerPage, true)['*'],
-                'page',
+                $this->itemsPerPageResolver->getPageSize($itemsPerPage, true),
+                ['*'],
+                'page.size',
                 $pageNumber
             );
     }
