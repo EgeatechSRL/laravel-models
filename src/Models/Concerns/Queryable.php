@@ -1,6 +1,6 @@
 <?php
 
-namespace EgeaTech\LaravelModels\Models\QueryBuilder;
+namespace EgeaTech\LaravelModels\Models\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\QueryBuilder\AllowedFilter;
