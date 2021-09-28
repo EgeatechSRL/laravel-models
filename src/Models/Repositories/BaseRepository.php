@@ -64,11 +64,10 @@ abstract class BaseRepository implements BaseRepositoryInterface
             $modelQuery = $cleanModelInstance->with($relationsToLoad);
 
             $results = $modelQuery->findMany($modelIds);
-            if ($failIfNotFound && $results->count() > 0) {
-                throw (new ModelNotFoundException());
-            } else {
-                return $results;
+            if ($failIfNotFound && $results->count() < 1) {
+                throw new ModelNotFoundException();
             }
+            return $results;
         } catch (QueryException $exception) {
             throw (new ModelNotFoundException());
         }
