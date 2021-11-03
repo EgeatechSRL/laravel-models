@@ -2,6 +2,10 @@
 
 All notable changes to `LaravelModels` will be documented in this file.
 
+## Version 2.1.0
+### Added
+- Ability to automatically cast FK attributes of Model classes to ModelIdentifier instances
+
 ## Version 2.0.2
 ### Fixed
 - `BaseRepository::getRecordsViaModelQuery` method

@@ -2,13 +2,16 @@
 
 namespace EgeaTech\LaravelModels\Models\Identifiers;
 
+use Illuminate\Contracts\Database\Eloquent\Castable;
+use EgeaTech\LaravelModels\Casts\ModelIdentifierCast;
+use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 use EgeaTech\LaravelModels\Interfaces\Models\Identifiers\IdentifierInterface;
 use EgeaTech\LaravelModels\Interfaces\Models\Identifiers\IntegerIdentifierInterface;
 use EgeaTech\LaravelModels\Interfaces\Models\Identifiers\StringIdentifierInterface;
 use Exception;
 use Illuminate\Support\Str;
 
-abstract class BaseIdentifier implements IdentifierInterface
+abstract class BaseIdentifier implements IdentifierInterface, Castable
 {
     protected string $modelClass;
 
@@ -20,14 +23,33 @@ abstract class BaseIdentifier implements IdentifierInterface
         $this->setResourceId($resourceId);
     }
 
+    /**
+     * Whether current instance holds the same value of
+     * another identifier.
+     *
+     * @param IdentifierInterface $otherResource
+     * @return bool
+     */
     public function is(IdentifierInterface $otherResource): bool
     {
         return $this->getValue() === $otherResource->getValue();
     }
 
+    /**
+     * Whether current instance value differs from another
+     * value object instance.
+     *
+     * @param IdentifierInterface $otherResource
+     * @return bool
+     */
     public function isNot(IdentifierInterface $otherResource): bool
     {
         return !$this->is($otherResource);
+    }
+
+    public static function castUsing(array $arguments): CastsAttributes
+    {
+        return new ModelIdentifierCast(static::class);
     }
 
     public function __toString(): string
