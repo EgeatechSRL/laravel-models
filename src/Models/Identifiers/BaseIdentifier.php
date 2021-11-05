@@ -27,11 +27,15 @@ abstract class BaseIdentifier implements IdentifierInterface, Castable
      * Whether current instance holds the same value of
      * another identifier.
      *
-     * @param IdentifierInterface $otherResource
+     * @param null|IdentifierInterface $otherResource
      * @return bool
      */
-    public function is(IdentifierInterface $otherResource): bool
+    public function is(?IdentifierInterface $otherResource): bool
     {
+        if (null === $otherResource) {
+            return false;
+        }
+
         return $this->getValue() === $otherResource->getValue();
     }
 
@@ -39,10 +43,10 @@ abstract class BaseIdentifier implements IdentifierInterface, Castable
      * Whether current instance value differs from another
      * value object instance.
      *
-     * @param IdentifierInterface $otherResource
+     * @param null|IdentifierInterface $otherResource
      * @return bool
      */
-    public function isNot(IdentifierInterface $otherResource): bool
+    public function isNot(?IdentifierInterface $otherResource): bool
     {
         return !$this->is($otherResource);
     }
