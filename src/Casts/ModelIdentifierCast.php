@@ -8,10 +8,12 @@ use EgeaTech\LaravelModels\Interfaces\Models\Identifiers\IdentifierInterface;
 class ModelIdentifierCast implements CastsAttributes
 {
     private string $identifierClass;
+    private ?string $modelKey;
 
-    public function __construct(string $identifierClass)
+    public function __construct(string $identifierClass, ?string $customModelKey = null)
     {
         $this->identifierClass = $identifierClass;
+        $this->modelKey = $customModelKey;
     }
 
     public function get($model, string $key, $value, array $attributes): ?IdentifierInterface
@@ -27,6 +29,8 @@ class ModelIdentifierCast implements CastsAttributes
             ? $value->getValue()
             : $value;
 
-        return [$key => $serializedValue];
+        $modelKey = ((string) $this->modelKey) ?? $key;
+
+        return [$modelKey => $serializedValue];
     }
 }

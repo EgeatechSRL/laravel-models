@@ -53,7 +53,7 @@ abstract class BaseIdentifier implements IdentifierInterface, Castable
 
     public static function castUsing(array $arguments): CastsAttributes
     {
-        return new ModelIdentifierCast(static::class);
+        return new ModelIdentifierCast(static::class, ...$arguments);
     }
 
     public function __toString(): string
