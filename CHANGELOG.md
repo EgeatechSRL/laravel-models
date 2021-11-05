@@ -2,6 +2,11 @@
 
 All notable changes to `LaravelModels` will be documented in this file.
 
+## Version 2.3.1
+### Fixed
+- Model identifier custom key definition is used on value retrieval and data persistence to update another field of a 
+model
+
 ## Version 2.3.0
 ### Added
 - Ability to compare define a custom key to handle model identifier automatic casting

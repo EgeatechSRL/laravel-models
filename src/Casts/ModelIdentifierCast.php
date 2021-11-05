@@ -18,9 +18,17 @@ class ModelIdentifierCast implements CastsAttributes
 
     public function get($model, string $key, $value, array $attributes): ?IdentifierInterface
     {
-        return null === $value
-            ? null
-            : new $this->identifierClass($value);
+        if (null !== $value) {
+            $value = new $this->identifierClass($value);
+        } elseif (
+            $this->modelKey
+            && array_key_exists((string) $this->modelKey, $attributes)
+            && null !== $attributes[$this->modelKey]
+        ) {
+            $value = new $this->identifierClass($attributes[$this->modelKey]);
+        }
+
+        return $value;
     }
 
     public function set($model, string $key, $value, array $attributes): array
@@ -29,8 +37,16 @@ class ModelIdentifierCast implements CastsAttributes
             ? $value->getValue()
             : $value;
 
-        $modelKey = ((string) $this->modelKey) ?? $key;
+        $attributesToReturn = [$key => $serializedValue];
 
-        return [$modelKey => $serializedValue];
+        if (
+            $this->modelKey
+            && array_key_exists((string) $this->modelKey, $attributes)
+            && null !== $attributes[$this->modelKey]
+        ) {
+            $attributesToReturn[$this->modelKey] = $serializedValue;
+        }
+
+        return $attributesToReturn;
     }
 }
