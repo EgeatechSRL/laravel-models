@@ -2,6 +2,10 @@
 
 All notable changes to `LaravelModels` will be documented in this file.
 
+## Version 2.2.0
+### Added
+- Ability to compare model identifiers with values possibly `null`
+
 ## Version 2.1.0
 ### Added
 - Ability to automatically cast FK attributes of Model classes to ModelIdentifier instances
