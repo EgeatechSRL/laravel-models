@@ -2,6 +2,10 @@
 
 All notable changes to `LaravelModels` will be documented in this file.
 
+## Version 2.3.0
+### Added
+- Ability to compare define a custom key to handle model identifier automatic casting
+
 ## Version 2.2.0
 ### Added
 - Ability to compare model identifiers with values possibly `null`
