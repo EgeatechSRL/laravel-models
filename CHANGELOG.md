@@ -2,6 +2,10 @@
 
 All notable changes to `LaravelModels` will be documented in this file.
 
+## Version 2.3.2
+### Fixed
+- PHP version specified in `composer.json` file
+
 ## Version 2.3.1
 ### Fixed
 - Model identifier custom key definition is used on value retrieval and data persistence to update another field of a 
