@@ -45,14 +45,6 @@ trait Queryable
             : [AllowedSort::field($modelInstance->getKeyName())];
     }
 
-    /**
-     * @return string[]
-     */
-    public static function getAllowedAppendAttributes(): array
-    {
-        return [];
-    }
-
     private static function fetchDisposableModelInstance(): Model
     {
         return new static();
