@@ -24,9 +24,4 @@ interface SupportsQueryBuilderInterface
      * @return AllowedSort[]
      */
     public static function getAllowedSorting(): array;
-
-    /**
-     * @return string[]
-     */
-    public static function getAllowedAppendAttributes(): array;
 }
