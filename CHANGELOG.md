@@ -2,6 +2,17 @@
 
 All notable changes to `LaravelModels` will be documented in this file.
 
+## Version 3.0.0
+
+### Removed
+
+- Support for PHP 7.4
+
+### Updated
+
+- [Laravel Requests](https://packagist.org/packages/egeatech/laravel-requests) version to 2.x
+- [Laravel Query Builder](https://packagist.org/packages/spatie/laravel-query-builder) version to 5.x
+
 ## Version 2.3.3
 
 ### Added
