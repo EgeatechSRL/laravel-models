@@ -7,7 +7,8 @@ A package to help handling Model CRUD operations.
 
 ## Installation
 
-This package supports Laravel 7 and 8 but requires **at least** PHP 7.4. 
+This package now supports only Laravel 9, therefore requiring **at least** PHP 8.0. Support for PHP 7.4 is valid up to
+package version 2.3.3.  
 
 Via Composer
 
@@ -28,7 +29,7 @@ To identify primary keys of eloquent Model classes, we also developed an `Identi
 to be extended for specific needs) which is used by the `BaseRepository` when dealing with specific entity operations,
 such as update, delete or find.
 
-At the moment we only support `int` or `string` PKs, composite keys support will be added in the future.
+At the moment we only support `int` or `string` PKs, composite keys support is not in the plan.
 
 ## Change log
 
