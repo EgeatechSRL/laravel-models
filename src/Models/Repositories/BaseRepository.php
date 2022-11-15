@@ -146,7 +146,6 @@ abstract class BaseRepository implements BaseRepositoryInterface
             ->allowedIncludes($this->model::getAllowedIncludes())
             ->defaultSort($this->model::getDefaultSortingField())
             ->allowedSorts($this->model::getAllowedSorting())
-            ->allowedAppends($this->model::getAllowedAppendAttributes())
             ->where($additionalFilters);
     }
 
@@ -186,8 +185,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
             ->allowedFilters($this->model::getAllowedFilters())
             ->allowedIncludes($this->model::getAllowedIncludes())
             ->defaultSort($this->model::getDefaultSortingField())
-            ->allowedSorts($this->model::getAllowedSorting())
-            ->allowedAppends($this->model::getAllowedAppendAttributes());
+            ->allowedSorts($this->model::getAllowedSorting());
 
         return $failIfNotFound
             ? $query->findOrFail($modelId)

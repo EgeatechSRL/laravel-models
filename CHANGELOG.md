@@ -2,6 +2,12 @@
 
 All notable changes to `LaravelModels` will be documented in this file.
 
+## Version 3.0.1
+
+### Fixed
+
+- Removing method from `BaseRepository` as it was dropped from Spatie's library
+
 ## Version 3.0.0
 
 ### Removed
