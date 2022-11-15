@@ -2,6 +2,12 @@
 
 All notable changes to `LaravelModels` will be documented in this file.
 
+## Version 3.0.2
+
+### Fixed
+
+- `SupportsQueryBuilderInterface` required the implementation of the method removed in `v3.0.1`
+
 ## Version 3.0.1
 
 ### Fixed
