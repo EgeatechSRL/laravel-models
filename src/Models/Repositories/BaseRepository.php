@@ -149,6 +149,11 @@ abstract class BaseRepository implements BaseRepositoryInterface
             ->where($additionalFilters);
     }
 
+    protected function appendAdditionalQueryDetails(QueryBuilder &$query, IdentifierInterface $modelId, bool $failIfNotFound): void
+    {
+        // Add stuff or update fields if needed! :)
+    }
+    
     /**
      * Method to be used when fetching a set of models which
      * implement `SupportsQueryBuilderInterface`.
@@ -186,6 +191,8 @@ abstract class BaseRepository implements BaseRepositoryInterface
             ->allowedIncludes($this->model::getAllowedIncludes())
             ->defaultSort($this->model::getDefaultSortingField())
             ->allowedSorts($this->model::getAllowedSorting());
+        
+       $this->appendAdditionalQueryDetails($query, $modelId, $failIfNotFound);
 
         return $failIfNotFound
             ? $query->findOrFail($modelId)
