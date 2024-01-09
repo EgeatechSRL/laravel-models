@@ -2,6 +2,16 @@
 
 All notable changes to `LaravelModels` will be documented in this file.
 
+## Version 4.0.0
+
+### Added
+
+- Support for UP TO Laravel 10.x
+
+### Updated
+
+- `egeatech/laravel-requests` to 3.x
+
 ## Version 3.0.2
 
 ### Fixed
